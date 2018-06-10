@@ -1,4 +1,10 @@
-const PORT = process.env.PORT || 3000
+const {
+  PORT,
+  DATABASE_URL,
+  DATABASE_NAME,
+  DATABASE_USER,
+  DATABASE_PASSWORD
+} = process.env
 const bcrypt = require('bcrypt-nodejs')
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -22,10 +28,11 @@ app = express()
 const db = knex({
   client: 'pg',
   connection: {
-    host: '127.0.0.1',
-    user: 'postgres',
-    password: 'postgres',
-    database: 'magicbrain',
+    host: DATABASE_URL,
+    ssl: true,
+    user: DATABASE_USER,
+    password: DATABASE_PASSWORD,
+    database: DATABASE_NAME,
   },
 })
 
